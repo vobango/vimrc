@@ -5,9 +5,11 @@ endif
 call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'haishanh/night-owl.vim'
+Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()

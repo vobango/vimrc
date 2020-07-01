@@ -1,18 +1,18 @@
 source $HOME/.config/nvim/vim-plug/plugins.vim
-source $HOME/.config/nvim/themes/airline.vim
+
+nnoremap <SPACE> <Nop>
+let mapleader=" "
 
 syntax enable
-colorscheme night-owl
+colorscheme gruvbox
 set hidden
 set nowrap
 set pumheight=10
 set ruler
-set cmdheight=2
 set mouse=a
 set t_Co=256
 set conceallevel=0
 set tabstop=2
-set showtabline=2
 set smarttab
 set smartindent
 set autoindent
@@ -20,7 +20,6 @@ set laststatus=0
 set number relativenumber
 set cursorline
 set background=dark
-set showtabline=2
 set noshowmode
 set nobackup
 set nowritebackup
@@ -29,9 +28,17 @@ set timeoutlen=500
 set formatoptions-=cro
 set clipboard=unnamedplus
 set colorcolumn=100
-highlight ColorColumn ctermbg=lightgrey guibg=wheat1
-highlight Comment cterm=italic
 
 if (has("termguicolors"))
 	set termguicolors
 endif
+
+" Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
+nnoremap <silent><C-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent><C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent><A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+
+highlight ColorColumn ctermbg=lightgrey guibg=#32302f
+highlight Comment cterm=italic
+
