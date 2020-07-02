@@ -2,8 +2,8 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 
 nnoremap <SPACE> <Nop>
 let mapleader=" "
+let g:gruvbox_italic=1
 
-syntax enable
 colorscheme gruvbox
 set hidden
 set nowrap
@@ -39,6 +39,9 @@ nnoremap <silent><C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
+" Shortcuts for FZF stuff
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-f> :Files<CR>
+
 highlight ColorColumn ctermbg=lightgrey guibg=#32302f
-highlight Comment cterm=italic
 

@@ -11,5 +11,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
