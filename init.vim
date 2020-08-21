@@ -15,6 +15,10 @@ set conceallevel=0
 set tabstop=2
 set smarttab
 set smartindent
+set shiftwidth=2
+set expandtab
+set listchars=tab:\|\ 
+set list
 set autoindent
 set laststatus=0
 set number relativenumber
@@ -43,5 +47,11 @@ nnoremap <silent><A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <C-b> :Buffers<CR>
 nnoremap <C-f> :Files<CR>
 
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 highlight ColorColumn ctermbg=lightgrey guibg=#32302f
 
+" Exit insert mode with kj or jk
+inoremap kj <Esc>
+inoremap jk <Esc>
