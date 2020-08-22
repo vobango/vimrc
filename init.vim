@@ -55,3 +55,6 @@ highlight ColorColumn ctermbg=lightgrey guibg=#32302f
 " Exit insert mode with kj or jk
 inoremap kj <Esc>
 inoremap jk <Esc>
+
+" Resize FZF window
+let g:fzf_layout = {'window': {'width': 0.75, 'height': 0.75}}
