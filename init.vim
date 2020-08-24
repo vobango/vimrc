@@ -56,5 +56,9 @@ highlight ColorColumn ctermbg=lightgrey guibg=#32302f
 inoremap kj <Esc>
 inoremap jk <Esc>
 
-" Resize FZF window
+" Resize FZF window and show search/top result on top
 let g:fzf_layout = {'window': {'width': 0.75, 'height': 0.75}}
+let $FZF_DEFAULT_OPTS='--reverse'
+
+" FZF-checkout shortcut
+nnoremap <leader>gc :GCheckout<CR>
