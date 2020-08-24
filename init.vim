@@ -62,3 +62,4 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 " FZF-checkout shortcut
 nnoremap <leader>gc :GCheckout<CR>
+nnoremap <leader>gs :vertical G<CR>
