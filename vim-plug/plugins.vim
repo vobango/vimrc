@@ -14,5 +14,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'machakann/vim-sandwich'
+Plug 'mattn/emmet-vim'
+Plug 'airblade/vim-rooter'
+Plug 'unblevable/quick-scope'
 
 call plug#end()

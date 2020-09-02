@@ -32,6 +32,7 @@ set timeoutlen=500
 set formatoptions-=cro
 set clipboard=unnamedplus
 set colorcolumn=100
+set showtabline=2
 
 if (has("termguicolors"))
 	set termguicolors
@@ -45,7 +46,7 @@ nnoremap <silent><A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 " Shortcuts for FZF stuff
 nnoremap <C-b> :Buffers<CR>
-nnoremap <C-f> :Files<CR>
+nnoremap <C-f> :GFiles<CR>
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -58,8 +59,36 @@ inoremap jk <Esc>
 
 " Resize FZF window and show search/top result on top
 let g:fzf_layout = {'window': {'width': 0.75, 'height': 0.75}}
-let $FZF_DEFAULT_OPTS='--reverse'
+let $FZF_DEFAULT_OPTS="--reverse"
 
 " FZF-checkout shortcut
 nnoremap <leader>gc :GCheckout<CR>
 nnoremap <leader>gs :vertical G<CR>
+nnoremap <leader>rg :Rg<CR>
+
+" Move between buffers
+nnoremap <C-j> :bprev<CR>
+nnoremap <C-K> :bnext<CR>
+
+" Remap Emmet leader key
+let g:user_emmet_leader_key=','
+
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#afff5f' gui=underline ctermfg=81 cterm=underline
+
+let g:qs_max_chars=150
+
+" enable tabline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+
+" enable powerline fonts
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
