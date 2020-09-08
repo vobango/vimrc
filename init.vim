@@ -31,11 +31,13 @@ set updatetime=300
 set timeoutlen=500
 set formatoptions-=cro
 set clipboard=unnamedplus
-set colorcolumn=100
+set colorcolumn=120
 set showtabline=2
+set splitbelow
+set splitright
 
 if (has("termguicolors"))
-	set termguicolors
+  set termguicolors
 endif
 
 " Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
@@ -92,3 +94,8 @@ let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" exclude filenames from Rg search
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%'), <bang>0) 

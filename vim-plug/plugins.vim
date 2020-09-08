@@ -18,5 +18,6 @@ Plug 'machakann/vim-sandwich'
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-rooter'
 Plug 'unblevable/quick-scope'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
