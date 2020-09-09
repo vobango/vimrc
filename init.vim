@@ -33,8 +33,12 @@ set formatoptions-=cro
 set clipboard=unnamedplus
 set colorcolumn=120
 set showtabline=2
+" Always create split windows to the right or below
 set splitbelow
 set splitright
+" Allow project specific vimrc
+set exrc
+set secure
 
 if (has("termguicolors"))
   set termguicolors
