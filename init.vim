@@ -30,7 +30,7 @@ set nowritebackup
 set updatetime=300
 set timeoutlen=500
 set formatoptions-=cro
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 set colorcolumn=120
 set showtabline=2
 " Always create split windows to the right or below
@@ -43,6 +43,18 @@ set secure
 if (has("termguicolors"))
   set termguicolors
 endif
+
+" Copy/paste from/to system clipboard
+function! ClipBoardYank()
+  call system('xclip -i -selection clipboard', @@)
+endfunction
+function! ClipBoardPaste()
+  let @@ = system('xclip -o -selection clipboard')
+endfunction
+
+vnoremap <silent> y y:call ClipBoardYank()<CR>
+vnoremap <silent> d d:call ClipBoardYank()<CR>
+nnoremap <silent> p :call ClipBoardPaste()<CR>p
 
 " Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
 nnoremap <silent><C-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
@@ -68,7 +80,7 @@ let g:fzf_layout = {'window': {'width': 0.75, 'height': 0.75}}
 let $FZF_DEFAULT_OPTS="--reverse"
 
 " FZF-checkout shortcut
-nnoremap <leader>gc :GCheckout<CR>
+nnoremap <leader>gc :GBranches<CR>
 nnoremap <leader>gs :vertical G<CR>
 nnoremap <leader>rg :Rg<CR>
 
@@ -103,3 +115,10 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " exclude filenames from Rg search
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%'), <bang>0) 
+
+" allow modifying the completeopt variable, or it will
+" be overridden all the time
+let g:asyncomplete_auto_completeopt = 0
+
+set completeopt=menuone,noinsert,noselect,preview
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif

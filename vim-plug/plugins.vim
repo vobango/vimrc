@@ -19,5 +19,9 @@ Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-rooter'
 Plug 'unblevable/quick-scope'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 call plug#end()
