@@ -23,5 +23,9 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'juneedahamed/svnj.vim'
+Plug 'nicwest/vim-http'
+Plug 'zivyangll/git-blame.vim'
 
 call plug#end()

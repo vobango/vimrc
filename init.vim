@@ -125,3 +125,22 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " General Vim shortcuts
 nnoremap <leader>w :w<CR>
+
+" Vim-LSP Flow support
+if executable('flow')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'flow',
+        \ 'cmd': {server_info->['flow', 'lsp', '--from', 'vim-lsp']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
+        \ 'whitelist': ['javascript', 'javascript.jsx'],
+        \ })
+endif
+
+" git-blame hotkey
+nnoremap <leader>b :<C-u>call gitblame#echo()<CR>
+
+" Delete buffer shortcut
+nnoremap <leader>d :bd<CR>
+
+" Un-highlight search shortcut
+nnoremap <leader>h :noh<CR>
