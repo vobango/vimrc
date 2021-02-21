@@ -2,7 +2,6 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 
 nnoremap <SPACE> <Nop>
 let mapleader=" "
-let g:gruvbox_italic=1
 
 colorscheme gruvbox
 set hidden

@@ -6,12 +6,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'kien/rainbow_parentheses.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'machakann/vim-sandwich'
@@ -27,5 +27,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'juneedahamed/svnj.vim'
 Plug 'nicwest/vim-http'
 Plug 'zivyangll/git-blame.vim'
+Plug 'sbdchd/neoformat'
 
 call plug#end()
