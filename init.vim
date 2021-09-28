@@ -3,7 +3,9 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-colorscheme gruvbox
+let g:material_style = 'palenight'
+let g:airline_theme = 'base16_material_palenight'
+colorscheme material
 set hidden
 set nowrap
 set pumheight=10
@@ -16,7 +18,7 @@ set smarttab
 set smartindent
 set shiftwidth=2
 set expandtab
-set listchars=tab:\|\ 
+set listchars=tab:\|\
 set list
 set autoindent
 set laststatus=0
@@ -32,6 +34,7 @@ set formatoptions-=cro
 set clipboard+=unnamedplus
 set colorcolumn=120
 set showtabline=2
+set scrolloff=5
 " Always create split windows to the right or below
 set splitbelow
 set splitright
@@ -55,15 +58,9 @@ vnoremap <silent> y y:call ClipBoardYank()<CR>
 vnoremap <silent> d d:call ClipBoardYank()<CR>
 nnoremap <silent> p :call ClipBoardPaste()<CR>p
 
-" Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
-nnoremap <silent><C-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent><C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+" Insert blank line below or above the current line
 nnoremap <silent><A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
-
-" Shortcuts for FZF stuff
-nnoremap <C-b> :Buffers<CR>
-nnoremap <C-f> :GFiles<CR>
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -81,7 +78,6 @@ let $FZF_DEFAULT_OPTS="--reverse"
 " FZF-checkout shortcut
 nnoremap <leader>gc :GBranches<CR>
 nnoremap <leader>gs :vertical G<CR>
-nnoremap <leader>rg :Rg<CR>
 
 " Move between buffers
 nnoremap <C-j> :bprev<CR>
@@ -143,3 +139,37 @@ nnoremap <leader>d :bd<CR>
 
 " Un-highlight search shortcut
 nnoremap <leader>h :noh<CR>
+
+" Startify settings
+let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_session_autoload = 1
+
+" Quickfix list shortcuts
+nnoremap <leader>qo :copen<CR>
+nnoremap <leader>ql :cclose<CR>
+nnoremap <leader>qk :cnext<CR>
+nnoremap <leader>qj :cprev<CR>
+
+" Keep 'next' centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ'z
+
+" Telescope stuff
+lua << EOF
+require('telescope').setup({
+defaults = {
+  layout_strategy = 'vertical',
+  layout_config = {
+    vertical = {
+      mirror = true
+      }
+    },
+  sorting_strategy = "ascending"
+  }
+})
+EOF
+nnoremap <leader>rg :Telescope live_grep<CR>
+nnoremap <leader>fs :Telescope grep_string<CR>
+nnoremap <leader>fb :Telescope file_browser<CR>
+nnoremap <C-f> :Telescope find_files<CR>

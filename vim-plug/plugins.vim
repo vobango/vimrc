@@ -6,8 +6,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -28,5 +28,13 @@ Plug 'juneedahamed/svnj.vim'
 Plug 'nicwest/vim-http'
 Plug 'zivyangll/git-blame.vim'
 Plug 'sbdchd/neoformat'
+Plug 'mhinz/vim-startify'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'marko-cerovac/material.nvim', { 'branch': 'main' }
+Plug 'kyazdani42/nvim-web-devicons'
 
 call plug#end()
