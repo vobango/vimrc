@@ -153,3 +153,7 @@ nnoremap <leader>fs :Telescope grep_string<CR>
 nnoremap <leader>fb :Telescope file_browser<CR>
 nnoremap <leader>gc :Telescope git_branches<CR>
 nnoremap <C-f> :Telescope find_files<CR>
+
+lua << EOF
+  require("twilight").setup()
+EOF

@@ -36,5 +36,6 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'marko-cerovac/material.nvim', { 'branch': 'main' }
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/twilight.nvim', { 'branch': 'main' }
 
 call plug#end()
