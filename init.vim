@@ -6,45 +6,40 @@ let mapleader=" "
 let g:material_style = 'palenight'
 let g:airline_theme = 'base16_material_palenight'
 colorscheme material
-set hidden
-set nowrap
-set pumheight=10
-set ruler
-set mouse=a
-set t_Co=256
-set conceallevel=0
-set tabstop=2
-set smarttab
-set smartindent
-set shiftwidth=2
-set expandtab
-set listchars=tab:\|\
-set list
-set autoindent
-set laststatus=0
-set number relativenumber
-set cursorline
-set background=dark
-set noshowmode
-set nobackup
-set nowritebackup
-set updatetime=300
-set timeoutlen=500
-set formatoptions-=cro
-set clipboard+=unnamedplus
-set colorcolumn=120
-set showtabline=2
-set scrolloff=5
-" Always create split windows to the right or below
-set splitbelow
-set splitright
-" Allow project specific vimrc
-set exrc
-set secure
-
 if (has("termguicolors"))
   set termguicolors
 endif
+set t_Co=256
+
+set hidden " hide unsaved changes when buffer is unloaded
+set nowrap " do not wrap lines that are longer than window width
+set pumheight=10 " popupmenu items shown in autocomplete window
+set mouse=a " enable mouse support in all modes
+set tabstop=2 " 1 tab === 2 spaces
+set smartindent " smart autoindent on new line
+set shiftwidth=2 " number of spaces for each indent
+set expandtab " replace tabs with spaces
+set laststatus=0 " never show status line for last window
+set number relativenumber " show current line number and display relative distance from current line
+set cursorline " highlight line under cursor
+set nobackup " do not create backup files when overwriting
+set updatetime=300 " write swap file to disk after 300 ms
+set timeoutlen=500 " wait 500 ms to complete a mapped sequence
+set formatoptions-=cro
+set clipboard+=unnamedplus " allow pasting from external keyboard
+set colorcolumn=120 " display a colored line at 120 characters"
+highlight ColorColumn ctermbg=lightgrey guibg=#32302f
+set showtabline=2 " always show line with tab page labels
+set scrolloff=8 " keep cursor 8 lines from top/bottom when scrolling
+set incsearch " highlight text while writing search string
+
+" Always create split windows to the right or below
+set splitbelow
+set splitright
+
+" Allow project specific vimrc
+set exrc
+set secure
 
 " Copy/paste from/to system clipboard
 function! ClipBoardYank()
@@ -62,21 +57,15 @@ nnoremap <silent> p :call ClipBoardPaste()<CR>p
 nnoremap <silent><A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
+" scroll through autocomplete menu with tab / shift-tab
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-highlight ColorColumn ctermbg=lightgrey guibg=#32302f
 
 " Exit insert mode with kj or jk
 inoremap kj <Esc>
 inoremap jk <Esc>
 
-" Resize FZF window and show search/top result on top
-let g:fzf_layout = {'window': {'width': 0.75, 'height': 0.75}}
-let $FZF_DEFAULT_OPTS="--reverse"
-
 " FZF-checkout shortcut
-nnoremap <leader>gc :GBranches<CR>
 nnoremap <leader>gs :vertical G<CR>
 
 " Move between buffers
@@ -84,15 +73,13 @@ nnoremap <C-j> :bprev<CR>
 nnoremap <C-K> :bnext<CR>
 
 " Remap Emmet leader key
-let g:user_emmet_leader_key=','
+let g:user_emmet_leader_key='<C-m>'
 
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
 highlight QuickScopeSecondary guifg='#afff5f' gui=underline ctermfg=81 cterm=underline
-
-let g:qs_max_chars=150
 
 " enable tabline
 let g:airline#extensions#tabline#enabled = 1
@@ -108,9 +95,6 @@ let g:airline_right_sep = ''
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-" exclude filenames from Rg search
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%'), <bang>0) 
-
 " allow modifying the completeopt variable, or it will
 " be overridden all the time
 let g:asyncomplete_auto_completeopt = 0
@@ -120,16 +104,6 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " General Vim shortcuts
 nnoremap <leader>w :w<CR>
-
-" Vim-LSP Flow support
-if executable('flow')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'flow',
-        \ 'cmd': {server_info->['flow', 'lsp', '--from', 'vim-lsp']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
-        \ 'whitelist': ['javascript', 'javascript.jsx'],
-        \ })
-endif
 
 " git-blame hotkey
 nnoremap <leader>b :<C-u>call gitblame#echo()<CR>
@@ -154,6 +128,11 @@ nnoremap <leader>qj :cprev<CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ'z
+nnoremap Y y$
+
+" Move selected lines in visual mode and indent on the go
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " Telescope stuff
 lua << EOF
@@ -172,4 +151,5 @@ EOF
 nnoremap <leader>rg :Telescope live_grep<CR>
 nnoremap <leader>fs :Telescope grep_string<CR>
 nnoremap <leader>fb :Telescope file_browser<CR>
+nnoremap <leader>gc :Telescope git_branches<CR>
 nnoremap <C-f> :Telescope find_files<CR>
