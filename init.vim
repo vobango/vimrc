@@ -65,9 +65,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap kj <Esc>
 inoremap jk <Esc>
 
-" FZF-checkout shortcut
-nnoremap <leader>gs :vertical G<CR>
-
 " Move between buffers
 nnoremap <C-j> :bprev<CR>
 nnoremap <C-K> :bnext<CR>
@@ -105,8 +102,14 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " General Vim shortcuts
 nnoremap <leader>w :w<CR>
 
+" Git stuff
 " git-blame hotkey
 nnoremap <leader>b :<C-u>call gitblame#echo()<CR>
+nnoremap <leader>p :Git pull --recourse-submodules<CR>
+nnoremap <leader>us :Git submodule foreach git pull origin master<CR>
+nnoremap <leader>gc :Telescope git_branches<CR>
+" FZF-checkout shortcut
+nnoremap <leader>gs :vertical G<CR>
 
 " Delete buffer shortcut
 nnoremap <leader>d :bd<CR>
@@ -145,13 +148,21 @@ defaults = {
       }
     },
   sorting_strategy = "ascending"
+  },
+pickers = {
+  find_files = {
+    hidden = true
+    },
+  file_browser = {
+    hidden = true
+    }
   }
 })
 EOF
+
 nnoremap <leader>rg :Telescope live_grep<CR>
 nnoremap <leader>fs :Telescope grep_string<CR>
 nnoremap <leader>fb :Telescope file_browser<CR>
-nnoremap <leader>gc :Telescope git_branches<CR>
 nnoremap <C-f> :Telescope find_files<CR>
 
 lua << EOF
