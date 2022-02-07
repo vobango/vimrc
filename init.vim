@@ -105,7 +105,7 @@ nnoremap <leader>w :w<CR>
 " Git stuff
 " git-blame hotkey
 nnoremap <leader>b :<C-u>call gitblame#echo()<CR>
-nnoremap <leader>p :Git pull --recourse-submodules<CR>
+nnoremap <leader>p :Git pull --recurse-submodules<CR>
 nnoremap <leader>us :Git submodule foreach git pull origin master<CR>
 nnoremap <leader>gc :Telescope git_branches<CR>
 " FZF-checkout shortcut
