@@ -4,15 +4,14 @@ nnoremap <SPACE> <Nop>
 let mapleader=" "
 
 let g:material_style = 'palenight'
-let g:airline_theme = 'base16_material_palenight'
-colorscheme material
+colorscheme gruvbox
 if (has("termguicolors"))
   set termguicolors
 endif
 set t_Co=256
 
 set hidden " hide unsaved changes when buffer is unloaded
-set nowrap " do not wrap lines that are longer than window width
+" set nowrap " do not wrap lines that are longer than window width
 set pumheight=10 " popupmenu items shown in autocomplete window
 set mouse=a " enable mouse support in all modes
 set tabstop=2 " 1 tab === 2 spaces
@@ -29,7 +28,6 @@ set formatoptions-=cro
 set clipboard+=unnamedplus " allow pasting from external keyboard
 set colorcolumn=120 " display a colored line at 120 characters"
 highlight ColorColumn ctermbg=lightgrey guibg=#32302f
-set showtabline=2 " always show line with tab page labels
 set scrolloff=8 " keep cursor 8 lines from top/bottom when scrolling
 set incsearch " highlight text while writing search string
 
@@ -141,6 +139,7 @@ vnoremap K :m '<-2<CR>gv=gv
 lua << EOF
 require('telescope').setup({
 defaults = {
+  file_ignore_patterns = { ".git", "node_modules" },
   layout_strategy = 'vertical',
   layout_config = {
     vertical = {
@@ -163,8 +162,12 @@ EOF
 nnoremap <leader>rg :Telescope live_grep<CR>
 nnoremap <leader>fs :Telescope grep_string<CR>
 nnoremap <leader>fb :Telescope file_browser<CR>
-nnoremap <C-f> :Telescope find_files<CR>
+nnoremap <leader>ff :Telescope find_files<CR>
+nnoremap <leader>tt :Telescope lsp_code_actions<CR>
 
 lua << EOF
-  require("twilight").setup()
+  require('gitsigns').setup()
+  require('neoscroll').setup()
+  require('lualine').setup()
+  require("bufferline").setup()
 EOF
