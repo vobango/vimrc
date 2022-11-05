@@ -1,5 +1,0 @@
-{
- "coc.preferences.formatOnSaveFiletypes": ["css",  "scss", "javascript", "html", "typescript", "typescriptreact"],
- "prettier.trailingComma": "none",
- "prettier.printWidth": 120
-}

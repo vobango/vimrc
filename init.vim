@@ -3,15 +3,19 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-let g:material_style = 'palenight'
-colorscheme gruvbox
+" Color scheme
+set t_Co=256
+set background=dark
 if (has("termguicolors"))
   set termguicolors
 endif
-set t_Co=256
+au Colorscheme * highlight Comment cterm=italic gui=italic
+" highlight ColorColumn ctermbg=lightgrey
+" Always set scheme as the last thing!
+colorscheme tokyonight-moon
 
 set hidden " hide unsaved changes when buffer is unloaded
-" set nowrap " do not wrap lines that are longer than window width
+set nowrap " do not wrap lines that are longer than window width
 set pumheight=10 " popupmenu items shown in autocomplete window
 set mouse=a " enable mouse support in all modes
 set tabstop=2 " 1 tab === 2 spaces
@@ -22,38 +26,36 @@ set laststatus=0 " never show status line for last window
 set number relativenumber " show current line number and display relative distance from current line
 set cursorline " highlight line under cursor
 set nobackup " do not create backup files when overwriting
+set nowritebackup
 set updatetime=300 " write swap file to disk after 300 ms
 set timeoutlen=500 " wait 500 ms to complete a mapped sequence
 set formatoptions-=cro
 set clipboard+=unnamedplus " allow pasting from external keyboard
-set colorcolumn=120 " display a colored line at 120 characters"
-highlight ColorColumn ctermbg=lightgrey guibg=#32302f
+" set colorcolumn=120 " display a colored line at 120 characters
 set scrolloff=8 " keep cursor 8 lines from top/bottom when scrolling
 set incsearch " highlight text while writing search string
+set virtualedit=all " move cursor past the last char on the line
+set signcolumn=yes
 
 " Always create split windows to the right or below
 set splitbelow
 set splitright
 
-" Allow project specific vimrc
-set exrc
-set secure
-
 " Copy/paste from/to system clipboard
 function! ClipBoardYank()
   call system('xclip -i -selection clipboard', @@)
 endfunction
+
 function! ClipBoardPaste()
   let @@ = system('xclip -o -selection clipboard')
 endfunction
 
 vnoremap <silent> y y:call ClipBoardYank()<CR>
-vnoremap <silent> d d:call ClipBoardYank()<CR>
-nnoremap <silent> p :call ClipBoardPaste()<CR>p
+nnoremap <silent> p p:call ClipBoardPaste()<CR>
 
 " Insert blank line below or above the current line
-nnoremap <silent><A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent><leader>j :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><leader>k :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 " scroll through autocomplete menu with tab / shift-tab
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -73,8 +75,8 @@ let g:user_emmet_leader_key='<C-m>'
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
-highlight QuickScopeSecondary guifg='#afff5f' gui=underline ctermfg=81 cterm=underline
+highlight QuickScopePrimary guibg='#00a7aF' guifg='#ffffff' ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guibg='#038726' guifg='#ffffff' ctermfg=81 cterm=underline
 
 " enable tabline
 let g:airline#extensions#tabline#enabled = 1
@@ -98,7 +100,7 @@ set completeopt=menuone,noinsert,noselect,preview
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " General Vim shortcuts
-nnoremap <leader>w :w<CR>
+nnoremap <leader>s :w<CR>
 
 " Git stuff
 " git-blame hotkey
@@ -128,7 +130,6 @@ nnoremap <leader>qj :cprev<CR>
 " Keep 'next' centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
-nnoremap J mzJ'z
 nnoremap Y y$
 
 " Move selected lines in visual mode and indent on the go
@@ -161,13 +162,46 @@ EOF
 
 nnoremap <leader>rg :Telescope live_grep<CR>
 nnoremap <leader>fs :Telescope grep_string<CR>
-nnoremap <leader>fb :Telescope file_browser<CR>
 nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>tt :Telescope lsp_code_actions<CR>
 
 lua << EOF
-  require('gitsigns').setup()
-  require('neoscroll').setup()
-  require('lualine').setup()
-  require("bufferline").setup()
+local function lineCount()
+  return vim.api.nvim_buf_line_count(0)
+end
+
+require('gitsigns').setup()
+require('neoscroll').setup()
+require('colorizer').setup()
+require('lualine').setup({
+  sections = {
+    lualine_b = {'branch'},
+    lualine_c = {
+      {
+        'filename',
+        file_status = false,
+        path = 2
+      }
+    },
+    lualine_x = {},
+    lualine_y = {'location', lineCount},
+    lualine_z = {}
+  }
+})
+require("bufferline").setup()
 EOF
+
+" Source Vim configuration file and install plugins
+nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
+
+" Toggle file browser
+nnoremap <leader>v <cmd>CHADopen<cr>
+
+" CoC stuff
+nmap <leader>fq <Plug>(coc-fix-current)
+nmap <leader>a <Plug>(coc-codeaction)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <leader>rn <Plug>(coc-rename)
+autocmd CursorHold * silent call CocActionAsync('highlight')
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
