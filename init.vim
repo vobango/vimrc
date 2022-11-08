@@ -57,10 +57,6 @@ nnoremap <silent> p p:call ClipBoardPaste()<CR>
 nnoremap <silent><leader>j :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>k :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
-" scroll through autocomplete menu with tab / shift-tab
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 " Exit insert mode with kj or jk
 inoremap kj <Esc>
 inoremap jk <Esc>
@@ -136,6 +132,41 @@ nnoremap Y y$
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
+" Source Vim configuration file and install plugins
+nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
+
+" Toggle file browser
+nnoremap <leader>v <cmd>CHADopen<cr>
+
+
+" CoC stuff
+nmap <leader>fq <Plug>(coc-fix-current)
+nmap <leader>a <Plug>(coc-codeaction)
+nmap <leader>rn <Plug>(coc-rename)
+xnoremap <leader>rn <Plug>(coc-rename)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 " Telescope stuff
 lua << EOF
 require('telescope').setup({
@@ -190,18 +221,3 @@ require('lualine').setup({
 })
 require("bufferline").setup()
 EOF
-
-" Source Vim configuration file and install plugins
-nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
-
-" Toggle file browser
-nnoremap <leader>v <cmd>CHADopen<cr>
-
-" CoC stuff
-nmap <leader>fq <Plug>(coc-fix-current)
-nmap <leader>a <Plug>(coc-codeaction)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <leader>rn <Plug>(coc-rename)
-autocmd CursorHold * silent call CocActionAsync('highlight')
-command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')

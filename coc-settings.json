@@ -1,0 +1,6 @@
+{
+  "suggest.noselect": false,
+  "suggest.enablePreselect": true,
+  "suggest.virtualText": true,
+  "suggest.triggerAfterInsertEnter": true
+}
