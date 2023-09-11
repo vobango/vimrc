@@ -135,8 +135,9 @@ vnoremap K :m '<-2<CR>gv=gv
 " Source Vim configuration file and install plugins
 nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
 
-" Toggle file browser
+" Toggle file browser (CHADtree)
 nnoremap <leader>v <cmd>CHADopen<cr>
+nnoremap <silent><leader>nu :set nu<CR>
 
 
 " CoC stuff
@@ -220,4 +221,22 @@ require('lualine').setup({
   }
 })
 require("bufferline").setup()
+EOF
+
+" Copilot stuff
+imap <C-N> <Plug>(copilot-next)
+imap <C-M> <Plug>(copilot-previous)
+
+" Nvim-ufo code Folding
+lua << EOF
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+require('ufo').setup({
+    provider_selector = function(bufnr, filetype, buftype)
+        return {'treesitter', 'indent'}
+    end
+})
 EOF

@@ -54,24 +54,43 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Show icons
 Plug 'kyazdani42/nvim-web-devicons'
+
 " Add more selectors for normal mode
 Plug 'wellle/targets.vim'
+
 " Show git modifications in the left gutter
 Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
+
 " Smooth scrolling
 Plug 'karb94/neoscroll.nvim'
+
 " Statusline
 Plug 'nvim-lualine/lualine.nvim'
+
 " Comment out selections
 Plug 'tpope/vim-commentary'
+
 " Cool bufferline
 Plug 'akinsho/bufferline.nvim'
+
 " LSP conf
 Plug 'neovim/nvim-lspconfig'
+
 " Code diagnostics
 Plug 'folke/trouble.nvim', { 'branch': 'main' }
+
 " Display colors of color codes in editor
 Plug 'norcalli/nvim-colorizer.lua'
+
+" Show markdown output in real time
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
+" Co-pilot
+Plug 'github/copilot.vim'
+
+" Folding
+Plug 'kevinhwang91/promise-async'
+Plug 'kevinhwang91/nvim-ufo'
 
 " Themes
 Plug 'morhetz/gruvbox'
